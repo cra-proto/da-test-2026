@@ -20,6 +20,22 @@
     "destination": "/da-test-2026/en/revenue-agency/services/forms-publications/forms/l300scha.html"
   },
   {
+    "origin": "https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t2140.html",
+    "destination": "/da-test-2026/en/revenue-agency/services/forms-publications/forms/t2140.html"
+  },
+  {
+    "origin": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4088/guide-form-t661-scientific-research-experimental-development-expenditures-claim-guide-form-t661.html",
+    "destination": "/da-test-2026/en/revenue-agency/services/forms-publications/publications/t4088/guide-form-t661-scientific-research-experimental-development-expenditures-claim-guide-form-t661.html"
+  },
+  {
+    "origin": "https://www.canada.ca/en/revenue-agency/services/forms-publications/tax-packages-years/general-income-tax-benefit-package/5000-g.html",
+    "destination": "/da-test-2026/en/revenue-agency/services/forms-publications/tax-packages-years/general-income-tax-benefit-package/5000-g.html"
+  },
+  {
+    "origin": "https://www.canada.ca/en/services/taxes/child-and-family-benefits.html",
+    "destination": "/da-test-2026/en/services/taxes/child-and-family-benefits.html"
+  },
+  {
     "origin": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/dental-benefit.html",
     "destination": "/da-test-2026/en/revenue-agency/services/child-family-benefits/dental-benefit.html"
   },
@@ -62,5 +78,13 @@
   {
     "origin": "https://www.canada.ca/en/revenue-agency/services/tax/technical-information/excise-duty/excise-duty-memoranda/edm6-2-obtaining-and-renewing-a-cannabis-licence.html",
     "destination": "/da-test-2026/en/revenue-agency/services/tax/technical-information/excise-duty/excise-duty-memoranda/edm6-2-obtaining-and-renewing-a-cannabis-licence.html"
+  },
+  {
+    "origin": "https://www.canada.ca/en/revenue-agency/services/charities-giving/charities/policies-guidance/non-qualified-investment-tax-liability.html",
+    "destination": "/da-test-2026/en/revenue-agency/services/charities-giving/charities/policies-guidance/non-qualified-investment-tax-liability.html"
+  },
+  {
+    "origin": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/special-payments/truck-drivers.html",
+    "destination": "/da-test-2026/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/special-payments/truck-drivers.html"
   }
 ]
