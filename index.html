@@ -1,28 +1,57 @@
----
-testBanner: false
-title: "da-test-2026 repository sitemap [GCWeb Jekyll pages]"
-dateModified: 2026-03-26
-dateIssued: 2026-03-26
-nositesearch: true
-nomenu: true
-breadcrumbs: false
-feedback: false
-share: false
-noFooterContextual: true
-noFooterCorporate: true
-noFooterMain: true
----
-
 <div class="mrgn-tp-md">
     <div class="row">
         <ul class="toc lst-spcd col-md-12">
-            <li class="col-md-4 col-sm-6"><a class="list-group-item active" data-exit="false" href="https://github.com/cra-proto/da-test-2026/tree/main">GitHub repository</a></li>
+            <li class="col-md-4 col-sm-6"><a class="list-group-item active" data-exit="false" href="https://github.com/${owner}/${repo}/tree/main">GitHub repository</a></li>
         </ul>
     </div>
 </div>
-<ul>
-{% assign sitePages = site.pages | sort: "url" %}
-{% for p in sitePages %}
-    <li><a href="{{ site.baseurl }}{{ p.url }}">{{ p.title | default: p.url }}</a></li>
+
+{% comment %} Separate English and French pages {% endcomment %}
+{% assign englishPages = site.pages | where_exp: "p", "p.url contains '/en/'" | sort: "url" %}
+{% assign frenchPages = site.pages | where_exp: "p", "p.url contains '/fr/'" %}
+
+{% comment %} Build lookup map for French pages by their URL {% endcomment %}
+{% assign frenchLookup = "" | split: "" %}
+{% for fp in frenchPages %}
+    {% assign frenchLookup = frenchLookup | push: fp %}
 {% endfor %}
-</ul>
+
+{% if frenchPages.size > 0 %}
+    {% comment %} Two-column layout {% endcomment %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>English</th>
+                <th>Français</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enPage in englishPages %}
+            <tr>
+                <td><a href="{{ site.baseurl }}{{ enPage.url }}">{{ enPage.title | default: enPage.url }}</a></td>
+                <td>
+                {% assign foundFrench = false %}
+                {% if enPage.altLangPage %}
+                    {% comment %} Look up French page by altLangPage URL {% endcomment %}
+                    {% for frPage in frenchLookup %}
+                        {% if enPage.altLangPage contains frPage.url %}
+                            <a href="{{ site.baseurl }}{{ frPage.url }}">{{ frPage.title | default: frPage.url }}</a>
+                            {% assign foundFrench = true %}
+                            {% break %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% unless foundFrench %}-{% endunless %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    {% comment %} Single-column layout {% endcomment %}
+    <ul>
+    {% for enPage in englishPages %}
+        <li><a href="{{ site.baseurl }}{{ enPage.url }}">{{ enPage.title | default: enPage.url }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
