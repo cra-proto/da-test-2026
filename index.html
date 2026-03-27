@@ -16,23 +16,20 @@ noFooterMain: true
 <div class="mrgn-tp-md">
     <div class="row">
         <ul class="toc lst-spcd col-md-12">
-            <li class="col-md-4 col-sm-6"><a class="list-group-item active" data-exit="false" href="https://github.com/cra-proto/da-test-2026/tree/main">GitHub repository</a></li>
+            <li class="col-md-4 col-sm-6"><a class="list-group-item active" data-exit="false" href="https://github.com/${owner}/${repo}/tree/main">GitHub repository</a></li>
         </ul>
     </div>
 </div>
 
 {% comment %} Separate English and French pages {% endcomment %}
 {% assign englishPages = site.pages | where_exp: "p", "p.url contains '/en/'" | sort: "url" %}
-{% assign frenchPages = site.pages | where_exp: "p", "p.url contains '/fr/'" %}
-
-{% comment %} Build lookup map for French pages by their URL {% endcomment %}
-{% assign frenchLookup = "" | split: "" %}
-{% for fp in frenchPages %}
-    {% assign frenchLookup = frenchLookup | push: fp %}
-{% endfor %}
+{% assign frenchPages = site.pages | where_exp: "p", "p.url contains '/fr/'" | sort: "url" %}
 
 {% if frenchPages.size > 0 %}
     {% comment %} Two-column layout {% endcomment %}
+    {% comment %} Track which French pages we've already paired {% endcomment %}
+    {% assign pairedFrenchUrls = "" | split: "" %}
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -47,10 +44,11 @@ noFooterMain: true
                 <td>
                 {% assign foundFrench = false %}
                 {% if enPage.altLangPage %}
-                    {% comment %} Look up French page by altLangPage URL {% endcomment %}
-                    {% for frPage in frenchLookup %}
+                    {% comment %} Look up French page by English altLangPage {% endcomment %}
+                    {% for frPage in frenchPages %}
                         {% if enPage.altLangPage contains frPage.url %}
                             <a href="{{ site.baseurl }}{{ frPage.url }}">{{ frPage.title | default: frPage.url }}</a>
+                            {% assign pairedFrenchUrls = pairedFrenchUrls | push: frPage.url %}
                             {% assign foundFrench = true %}
                             {% break %}
                         {% endif %}
@@ -60,10 +58,20 @@ noFooterMain: true
                 </td>
             </tr>
         {% endfor %}
+        
+        {% comment %} Add unpaired French pages {% endcomment %}
+        {% for frPage in frenchPages %}
+            {% unless pairedFrenchUrls contains frPage.url %}
+                <tr>
+                    <td>-</td>
+                    <td><a href="{{ site.baseurl }}{{ frPage.url }}">{{ frPage.title | default: frPage.url }}</a></td>
+                </tr>
+            {% endunless %}
+        {% endfor %}
         </tbody>
     </table>
 {% else %}
-    {% comment %} Single-column layout {% endcomment %}
+    {% comment %} Single-column layout (English only) {% endcomment %}
     <ul>
     {% for enPage in englishPages %}
         <li><a href="{{ site.baseurl }}{{ enPage.url }}">{{ enPage.title | default: enPage.url }}</a></li>
